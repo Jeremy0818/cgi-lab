@@ -6,27 +6,24 @@ import sys
 import secret
 import templates
 
+#  Get posted value from standard input before sending the HTTP response
 p = []
 checkLogin = [False, False]
 posted_bytes = os.environ.get("CONTENT_LENGTH", 0)
 if posted_bytes:
 	posted = sys.stdin.read(int(posted_bytes))
 	for line in posted.splitlines():
-		params = line.split('&')
-		for param in params:
-			(name, value) = param.split('=')
+		cookies = line.split('&')
+		for cookie in cookies:
+			(name, value) = cookie.split('=')
 			p.append(value)
-			#print(name, ": ", value)
+			#  Check if the client posted the correct username and password
 			if name == "username" and value == secret.username:
 				checkLogin[0] = True
 			elif name == "password" and value == secret.password:
 				checkLogin[1] = True
 
-
-
-# print('Content-Type: application/json\r\n')
-# print(json.dumps(dict(os.environ), indent=2))
-
+#  Modify the website message and HTTP response header according to the login state
 msg = "Log in Unsuccessful, please try again..."
 if checkLogin[0] == True and checkLogin[1] == True:
 	print('Set-Cookie:sessionId=CMPUT404' + '; Max-Age=30')

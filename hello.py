@@ -3,19 +3,23 @@
 import os
 import json
 import templates
+import sys
+import secret
 
+#  Use json to inspect all environment variables
 # print('Content-Type: application/json\r\n')
 # print(json.dumps(dict(os.environ), indent=2))
 
 
 
-
+#  Create HTTP response and report QUERY_STIRNG, HTTP_USER_AGENT, AND HTTP_COKIE if exists
 print('Content-Type: text/html\r\n')
 print("""
 	<!doctype html>
 	<html>
 		<body>
 			<h1>Testing html, Congrats!</h1>""")
+#  report query string
 try:
 	print(f'<p> QUERY_STRING </p>')
 	print("<ul>")
@@ -26,7 +30,12 @@ try:
 except:
 	print("</ul>")
 	print(f'<p> No Query Found! </p>')
-print(f'<p> User\'s browser = {os.environ["HTTP_USER_AGENT"]} </p>')
+#  report user's browser
+try:
+	print(f'<p> User\'s browser = {os.environ["HTTP_USER_AGENT"]} </p>')
+except:
+	print(f'<p> No User Agent Found! </p>')
+#  report HTTP cookies
 try:
 	cookies = os.environ["HTTP_COOKIE"].split(';')
 	if cookies[0] == "":
@@ -53,7 +62,7 @@ try:
 			print(templates.login_page())
 except BaseException as e:
 	print(str(e))
-	print(f'<p> Error found! </p>')
+	print(f'<p> Unable to access Cookies </p>')
 print("""
 		</body></html>
 	""")
