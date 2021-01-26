@@ -39,10 +39,6 @@ if checkLogin[0] == True and checkLogin[1] == True:
 		<html>
 			<body>
 				<h1>""" + msg + """</h1>""")
-	print(f'<h2> Posted data </h2>')
-	print(f"<h3> POSTED: <pre>")
-	print("username:", p[0], "\npassword:", p[1])
-	print("</pre></h3>")
 	# print("""
 	# 		</body></html>
 	# 	""")
@@ -71,6 +67,12 @@ else:
 		print(f'<p> User\'s browser = {os.environ["HTTP_USER_AGENT"]} </p>')
 	except:
 		print(f'<p> No User Agent Found! </p>')
+#  report posted data
+if posted_bytes:
+	print(f'<h2> Posted data </h2>')
+	print(f"<h3> POSTED: <pre>")
+	print("username:", p[0], "\npassword:", p[1])
+	print("</pre></h3>")
 #  report HTTP cookies
 try:
 	cookies = os.environ["HTTP_COOKIE"].split(';')
