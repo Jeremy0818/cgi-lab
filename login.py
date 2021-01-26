@@ -29,9 +29,9 @@ if posted_bytes:
 
 msg = "Log in Unsuccessful, please try again..."
 if checkLogin[0] == True and checkLogin[1] == True:
-	print('Set-Cookie: sessionId=' + os.environ.get("TERM_SESSION_ID", 0) + '; Max-Age=30')
-	print(f'Set-Cookie: username={p[0]}; Max-Age=30')
-	print(f'Set-Cookie: password={p[1]}; Max-Age=30')
+	print('Set-Cookie:sessionId=CMPUT404' + '; Max-Age=30')
+	print(f'Set-Cookie:username={p[0]}; Max-Age=30')
+	print(f'Set-Cookie:password={p[1]}; Max-Age=30')
 	msg = "Log in Successful, Congrats!"
 print('Content-Type: text/html\r\n')
 print("""

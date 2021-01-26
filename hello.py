@@ -33,13 +33,21 @@ try:
 		print(f'<p> No Cookie Found! </p>')
 		print(templates.login_page())
 	else:
+		found = False
 		p = []
 		for c in cookies:
-			params = c.split('=')
+			params = c.strip().split('=')
 			p.append(params)
-		if p[0][0] == "sessionId" and p[0][1] == os.environ["TERM_SESSION_ID"]:
-			print(f'<p> Cookies Found! </p>')
-			print(templates.secret_page(p[1][1], p[2][1]))
+			print(params)
+			if params[0] == "sessionId" and params[1] == "CMPUT404":
+				print(f'<p> Cookies Found! </p>')
+				found = True
+			elif params[0] == "username":
+				username = params[1]
+			elif params[0] == "password":
+				password = params[1]
+		if found:
+			print(templates.secret_page(username, password))
 		else:
 			print(f'<p> Wrong Cookies Found! </p>')
 			print(templates.login_page())
